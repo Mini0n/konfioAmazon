@@ -59,7 +59,7 @@ function doSearchKeywords(keywords, callback, callbackParams){
     if (err) {
       console.log('error');
       console.log(err);
-      console.log(err[0].Error);
+      // console.log(err[0].Error);
     } else {
       // console.log(results);  // products (Array of Object) 
       // console.log(response); // response (Array where the first element is an Object that contains Request, Item, etc.) 
