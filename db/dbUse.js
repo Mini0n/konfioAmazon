@@ -46,11 +46,21 @@ function readProductASIN(ASIN, callback){
   });
 }
 
+//read all Amazon Products
+function readAllProducts(callback){
+  sql = 'SELECT * FROM '+dbKonfio.konfioTable;
+  con.query(sql, function(err, res, fields){
+    if (err) throw err;
+    callback(res);
+  });
+}
+
 // writeProduct({pupe:'pupe'});
 
 //Exports
 exports.writeProduct = writeProduct;
 exports.readProductASIN = readProductASIN;
+exports.readAllProducts = readAllProducts;
 
 // var employees = null;
 // function getEmployees(){
