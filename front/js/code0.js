@@ -53,23 +53,24 @@ function loading(loading){
 function drawProduct(amazonData){
   var tBody = $('#table-body');
   amazonData.forEach((prod) => {    
-    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr>').children().last();
+    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr> ').children().last();
     tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42"></td>');
-    tr.append('<td>'+prod.ASIN+'</td>');
-    tr.append('<td>'+prod.Title+'</td>');
-    tr.append('<td>'+prod.Label+'</td>');
-    tr.append('<td>'+prod.ProductTypeName+'</td>');
-    tr.append('<td><a href="'+prod.DetailPageURL+'" target="_blank">@Amazon</a></td>');
+    tr.append('<td>'+prod.ASIN+'</td> ');
+    tr.append('<td>'+prod.Title+'</td> ');
+    tr.append('<td>'+prod.Label+'</td> ');
+    tr.append('<td>'+prod.ProductTypeName+'</td> ');
+    tr.append('<td><a href="'+prod.DetailPageURL+'" target="_blank">@Amazon</a></td> ');
   });
 }
 
 function searchTable(what){
   var catalog = $('#table-body').children();
-  console.log(catalog);
-  // catalog.forEach((prodRow) => {
-  //   console.log(String(prodRow.children()));
-  // });
+  catalog.each((ind, el) => {
+    var str = $(el).text().replace('@Amazon','').toLowerCase();
+    if (str.includes(what.toLowerCase())){ $(el).show(); } else { $(el).hide(); }  
+  });
+
 }
 
-
+currentTab = 'catalog';
 setTab(currentTab);
