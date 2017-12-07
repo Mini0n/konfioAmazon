@@ -23,9 +23,9 @@ AmazonProduct = {
   DetailPageURL   = DetailPageURL[0],
   MediumImage     = MediumImage[0].URL[0],
   LargeImage      = LargeImage[0].URL[0],
-  Title           = ItemAttributes[0].Title[0]
-  Studio          = ItemAttributes[0].Studio[0]
-  Label           = ItemAttributes[0].Label[0]
+  Title           = ItemAttributes[0].Title[0],
+  Studio          = ItemAttributes[0].Studio[0],
+  Label           = ItemAttributes[0].Label[0],
   ProductTypeName = ItemAttributes[0].ProductTypeName[0]
 }
 ---------------------------------------------------------- */

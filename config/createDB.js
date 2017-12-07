@@ -27,31 +27,48 @@ con.connect(function(err) {
 });
 
 /*-- Table definition taken from myphpadmin -----------------
-CREATE TABLE `Intelisis`. 
-  ( `id` INT NOT NULL AUTO_INCREMENT , 
-    `code` VARCHAR NOT NULL , 
-    `used` BOOLEAN NOT NULL DEFAULT FALSE , 
-    `created` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-     PRIMARY KEY (`id`)) 
-    ENGINE = InnoDB;
-
-    ASIN[0], 
-    DetailPageURL[0], 
-    MediumImage[0].URL, 
-    LargeImage[0].URL, 
-    ItemAttributes.Title
-    ItemAttributes.Studio
-    ItemAttributes.ProductTypeName
-    ItemAttributes.Label 
+-------------------------------------------------------------
+Amazon product object to be used: definition
+AmazonProduct = {
+  ASIN            = ASIN[0],
+  DetailPageURL   = DetailPageURL[0],
+  MediumImage     = MediumImage[0].URL[0],
+  LargeImage      = LargeImage[0].URL[0],
+  Title           = ItemAttributes[0].Title[0],
+  Studio          = ItemAttributes[0].Studio[0],
+  Label           = ItemAttributes[0].Label[0],
+  ProductTypeName = ItemAttributes[0].ProductTypeName[0]
+}
+-------------------------------------------------------------
+CREATE TABLE konfio_prods
+(id INT NOT NULL AUTO_INCREMENT, 
+ASIN VARCHAR NOT NULL, 
+DetailPageURL VARCHAR NOT NULL, 
+MediumImage VARCHAR NOT NULL, 
+LargeImage VARCHAR NOT NULL, 
+Title VARCHAR NOT NULL, 
+Studio VARCHAR NOT NULL, 
+Label VARCHAR NOT NULL, 
+ProductTypeName VARCHAR NOT NULL, 
+created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+PRIMARY KEY (id));
 ---------------------------------------------------------- */
 function createCodesTable(tableName){
  var sql = '';
- sql += 'CREATE TABLE '+tableName+' '; 
+
+ sql += 'CREATE TABLE '+tableName+' ';
  sql += '(id INT NOT NULL AUTO_INCREMENT,';
- sql += 'code VARCHAR(20) NOT NULL,';
- sql += 'used BOOLEAN NOT NULL DEFAULT FALSE,';
+ sql += 'ASIN VARCHAR(255) NOT NULL,';
+ sql += 'DetailPageURL VARCHAR(255) NOT NULL,';
+ sql += 'MediumImage VARCHAR(255) NOT NULL,';
+ sql += 'LargeImage VARCHAR(255) NOT NULL,';
+ sql += 'Title VARCHAR(255) NOT NULL,';
+ sql += 'Studio VARCHAR(255) NOT NULL,';
+ sql += 'Label VARCHAR(255) NOT NULL,';
+ sql += 'ProductTypeName VARCHAR(255) NOT NULL,';
  sql += 'created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,';
- sql += ' PRIMARY KEY (`id`))';
+ sql += 'PRIMARY KEY (id))';
+
  console.log('> '+tableName+' creation query: ');
  console.log(sql);
  con.query(sql, function(err, res){
