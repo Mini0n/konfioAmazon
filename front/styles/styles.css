@@ -1,0 +1,10 @@
+#loading-div {
+  width: 100%;
+  text-align: center;
+  color: white;
+  display: none;
+}
+
+#loading-div pre {
+  color: white;
+}

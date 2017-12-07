@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">  
-  <title>PeopleOne</title>
+  <title>Konfio</title>
 </head>
 <body class="bg-dark">
   <!-- <pre>ola k ase; Front End</pre> -->
@@ -14,36 +14,29 @@
 <!-- NAVBAR  -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  
   <a class="navbar-brand" href="#">Konfío</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
     <ul id="links" class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" onclick="setActiveLink(); showAll();" href="#">Search <span class="sr-only">(current)</span></a>
+        <a class="nav-link" onclick="setActiveLink(this.id);" id="amazon" href="#">Search <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" onclick="setActiveLink(); showCatalogs();" href="#">My Catalog</a>
+        <a class="nav-link" onclick="setActiveLink(this.id);" id="catalog" href="#">My Catalog</a>
       </li>
-
-      <!-- <li class="nav-item">
-        <a class="nav-link" onclick="setActiveLink(); showAreas();" href="#">Areas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" onclick="setActiveLink(); showItems();" href="#">Items</a>
-      </li> -->
-      
-
-
-
     </ul>
+
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="searchTable();">Search</button>
+      <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="search();">Search</button>
     </form>
   </div>
+
 </nav>
 
 
@@ -54,15 +47,31 @@
   <table class="table table-responsive-sm table-dark">
     <thead>
       <tr>
-        <th class="catalog-cell" scope="col">Catalog</th>
-        <th class="area-cell" scope="col">Area</th>
-        <th class="item-cell" scope="col">Item</th>
+        <th class="ASIN-cell" scope="col">ASIN</th>
+        <th class="Img-cell" scope="col">Img</th>
+        <th class="Title-cell" scope="col">Title</th>
+        <th class="Label-cell" scope="col">Label</th>
+        <th class="Type-cell" scope="col">Type</th>
+        <th class="URL-cell" scope="col">URL</th>
       </tr>
     </thead>
-    <tbody id="table-body">
+    <tbody id="table-body" class="bg-dark">
       <!-- items here -->
+      <tr>
+        <td>algo  </td>
+        <td>algo2 </td>
+        <td>algo3 </td>
+        <td>algo4 </td>
+        <td>algo5 </td>
+        <td>algo6 </td>
+      </tr>
     </tbody>
   </table>
+
+  <div id="loading-div">
+    <pre>l o a d i n g . . .</pre>
+  </div>
+
 <!-- </div> -->
 
 
@@ -84,8 +93,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   <!-- bootstrap scripts end -->
   <!-- my scripts -->
-  <script src="js/catalog.js"></script>
-  <script src="js/code0.js" ></script>
+  <script src="front/js/catalog.js"></script>
+  <script src="front/js/code0.js" ></script>
+  <link  rel="stylesheet" href="front/styles/styles.css">
   <!-- my scripts end -->
 
 </body>

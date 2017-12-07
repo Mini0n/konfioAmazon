@@ -34,6 +34,11 @@ app.get('/detail/:ASIN', function(req, res){
   dbUse.readProductASIN(req.params.ASIN, (results) => { res.json(results) } );
 });
 
+
+//--- statics ----
+app.use("/front", express.static(__dirname + '/front'));
+
+
 app.listen(8000);
 console.log('server starded');
 
