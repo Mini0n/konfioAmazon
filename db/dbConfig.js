@@ -22,4 +22,6 @@ function connect(dbName){
 
 connect(); //start connection
 
-exports.con = con;
+exports.con = con;                  //export connection object
+exports.konfioDB = konfioDB;        //export konfio DB name
+exports.konfioTable = konfioTable;  //export konfio Table name

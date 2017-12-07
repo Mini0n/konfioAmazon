@@ -15,10 +15,30 @@ AmazonProduct = {
 }
 ---------------------------------------------------------- */
 
-
+//write an AmazonProduct object to the DB
 function writeProduct(amazonProduct){
- //
+  var sql = 'INSERT INTO '+dbKonfio.konfioTable+' '; 
+  sql += '(ASIN, DetailPageURL, MediumImage, LargeImage, Title, Studio, Label, ProductTypeName) VALUES ';
+  sql += '("'+amazonProduct.ASIN+'", ';
+  sql +=  '"'+amazonProduct.DetailPageURL+'", ';
+  sql +=  '"'+amazonProduct.MediumImage+'", ';
+  sql +=  '"'+amazonProduct.LargeImage+'", ';
+  sql +=  '"'+amazonProduct.Title+'", ';
+  sql +=  '"'+amazonProduct.Studio+'", ';
+  sql +=  '"'+amazonProduct.Label+'", ';
+  sql +=  '"'+amazonProduct.ProductTypeName+'" ';
+  sql += ')';
+  console.log(sql);
+  con.query(sql, function(err, res){
+    if (err) throw err;
+    console.log('Amazon Object has beed added to the table');
+  });
 }
+
+// writeProduct({pupe:'pupe'});
+
+//Exports
+exports.writeProduct = writeProduct;
 
 // var employees = null;
 // function getEmployees(){
