@@ -27,8 +27,10 @@ app.get('/list', function(req, res){
 });
 
 app.get('/detail', function(req, res){
-  res.sendFile(front+'detail.html');
+  // res.sendFile(front+'detail.html');
+  dbUse.readAllProducts((results) => { res.json(results) });
 });
+
 
 app.get('/detail/:ASIN', function(req, res){
   dbUse.readProductASIN(req.params.ASIN, (results) => { res.json(results) } );

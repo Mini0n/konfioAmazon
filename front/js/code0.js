@@ -1,27 +1,48 @@
 console.log('code0');
 
-const currentTab = 'amazon';
 const amazonURL  = '/search';
+const catalogURL = '/detail';
+
+//some global var to make all smoother
+var currentTab = 'amazon';
+var lastAmazonSearch  = 'shoegaze';
+var lastCatalogSearch = '';
 
 function setActiveLink(tab){
   $('#links').children().removeClass('active');
   $(event.target).parent().addClass('active');
   currentTab = tab; //just check where we are so we know what to do
+  setTab(currentTab);
+}
+
+function setTab(currentTab){
+  if (currentTab === 'catalog'){ 
+    loadCatalog(); 
+  } else {
+    searchAmazon(lastAmazonSearch);
+  }
 }
 
 function search(){
   var val = $('#search-input').val();
-  console.log(val);
   if (currentTab === 'amazon'){ searchAmazon(val); } else { searchTable(val); }
 }
 
 function searchAmazon(what){
   loading(true);
+  lastAmazonSearch = what;
   $.get(amazonURL+'/'+what, function(data, status){
-    console.log(data);
-    drawAmazon(data);
     loading(false);
+    drawAmazon(data);
   }); 
+}
+
+function loadCatalog(){
+  loading(true);
+  $.get(catalogURL, function(data, status){
+    loading(false);
+    drawAmazon(data);
+  });
 }
 
 function loading(loading){
@@ -31,23 +52,20 @@ function loading(loading){
 
 function drawAmazon(amazonData){
   var tBody = $('#table-body');
-  amazonData.forEach(prod => {
-    
-    // <tr>
-    // <td>algo  </td>
-    // <td>algo2 </td>
-    // <td>algo3 </td>
-    // <td>algo4 </td>
-    // <td>algo5 </td>
-    // <td>algo6 </td>
-    // </tr>
-
-    var tr = tBody.append($('tr'));
-    console.log(tr);
-
+  amazonData.forEach((prod) => {    
+    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr>');
+    tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42"></td>');
+    tr.append('<td>'+prod.ASIN+'</td>');
+    tr.append('<td>'+prod.Title+'</td>');
+    tr.append('<td>'+prod.Label+'</td>');
+    tr.append('<td>'+prod.ProductTypeName+'</td>');
+    tr.append('<td><a href="'+prod.DetailPageURL+'" target="_blank">@Amazon</a></td>');
   });
 }
 
 function searchTable(what){
 
 }
+
+loading(true);
+setTab(currentTab);
