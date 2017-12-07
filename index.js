@@ -34,9 +34,11 @@ console.log('server starded');
 
 function returnResultsJSON(results, res){
   searchResults = results;
-  dbUse.writeProduct(results[0]);
+  // dbUse.writeProduct(results[0]);
   res.json(results);
 }
+
+
 
 
 
