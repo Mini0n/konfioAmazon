@@ -16,8 +16,8 @@ function setActiveLink(tab){
 }
 
 function setTab(currentTab){
-  if (currentTab === 'catalog'){ 
-    loadCatalog(); 
+  if (currentTab === 'catalog'){
+    loadCatalog();
   } else {
     searchAmazon(lastAmazonSearch);
   }
@@ -33,7 +33,7 @@ function searchAmazon(what){
   lastAmazonSearch = what;
   $.get(amazonURL+'/'+what, function(data, status){
     loading(false);
-    drawAmazon(data);
+    drawProduct(data);
   }); 
 }
 
@@ -41,7 +41,7 @@ function loadCatalog(){
   loading(true);
   $.get(catalogURL, function(data, status){
     loading(false);
-    drawAmazon(data);
+    drawProduct(data);
   });
 }
 
@@ -50,7 +50,7 @@ function loading(loading){
   if (loading){ $('#loading-div').show(); } else { $('#loading-div').hide(); }
 }
 
-function drawAmazon(amazonData){
+function drawProduct(amazonData){
   var tBody = $('#table-body');
   amazonData.forEach((prod) => {    
     var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr>');
@@ -64,8 +64,9 @@ function drawAmazon(amazonData){
 }
 
 function searchTable(what){
-
+  // var catalog = $('#table-body').children().find(':not(:contains('+what+'))').parent();
+  // console.log(catalog);
 }
 
-loading(true);
+
 setTab(currentTab);
