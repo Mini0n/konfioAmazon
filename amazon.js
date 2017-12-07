@@ -16,6 +16,42 @@ var searchQuery = {
   domain: 'webservices.amazon.com.mx'
 }
 
+/* -------------------------------------------------------
+Amazon product object to be used: definition
+AmazonProduct = {
+  ASIN            = ASIN[0],
+  DetailPageURL   = DetailPageURL[0],
+  MediumImage     = MediumImage[0].URL[0],
+  LargeImage      = LargeImage[0].URL[0],
+  Title           = ItemAttributes[0].Title[0]
+  Studio          = ItemAttributes[0].Studio[0]
+  Label           = ItemAttributes[0].Label[0]
+  ProductTypeName = ItemAttributes[0].ProductTypeName[0]
+}
+---------------------------------------------------------- */
+function createAmazonProduct(amazonProductResponse){
+  var aP = {}; //Empty object
+  aP.ASIN            = amazonProductResponse.ASIN[0];
+  aP.DetailPageURL   = amazonProductResponse.DetailPageURL[0];
+  aP.MediumImage     = amazonProductResponse.MediumImage[0].URL[0];
+  aP.LargeImage      = amazonProductResponse.LargeImage[0].URL[0];
+  aP.Title           = amazonProductResponse.ItemAttributes[0].Title[0];
+  aP.Studio          = amazonProductResponse.ItemAttributes[0].Studio[0];
+  aP.Label           = amazonProductResponse.ItemAttributes[0].Label[0];
+  aP.ProductTypeName = amazonProductResponse.ItemAttributes[0].ProductTypeName[0];
+  return aP;
+}
+
+function generateAmazonProductsObjects(amazonResults){
+  var tempo = [];
+  if (Object.prototype.toString.call(amazonResults) === '[object Array]'){ 
+    amazonResults.forEach(prod => {
+      tempo.push(createAmazonProduct(prod));
+    });
+  }
+  return tempo;
+}
+
 //execute searchQuery object through itemSearch API
 function doSearchKeywords(keywords, callback, callbackParams){
   searchQuery.keywords = keywords;  
@@ -28,18 +64,12 @@ function doSearchKeywords(keywords, callback, callbackParams){
       // console.log(results);  // products (Array of Object) 
       // console.log(response); // response (Array where the first element is an Object that contains Request, Item, etc.) 
       // logInfo(results);
-      if (callbackParams !== undefined){
-        if (Object.prototype.toString.call(callbackParams) === '[object Array]'){
-          callbackParams.unshift(results);
-        } else {
-          callbackParams = [results];  
-        }
+      var amazonObjects = generateAmazonProductsObjects(results);
+      if (Object.prototype.toString.call(callbackParams) === '[object Array]'){
+        callbackParams.unshift(amazonObjects);
       } else {
-        callbackParams = [results];
+        callbackParams = [amazonObjects];  
       }
-      // console.log('last callbackParams ------');
-      // console.log(callbackParams);
-      // console.log('--------------------------');
       callback.apply(null, callbackParams);
     }
   });
