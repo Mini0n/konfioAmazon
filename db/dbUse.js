@@ -41,12 +41,15 @@ function readProductASIN(ASIN, callback){
   console.log(sql);
   con.query(sql, function(err, res, fields){
     if (err) throw err;
-    // console.log(res);
-    callback(res);
+    if (res.length < 1) { //an array is returned 
+      callback({}); 
+    }  else {
+      callback(res[0]);
+    }
   });
 }
 
-//read all Amazon Products
+//read all Amazon Products as an array
 function readAllProducts(callback){
   sql = 'SELECT * FROM '+dbKonfio.konfioTable;
   con.query(sql, function(err, res, fields){
@@ -55,12 +58,32 @@ function readAllProducts(callback){
   });
 }
 
+// ASIN            = ASIN[0],
+// DetailPageURL   = DetailPageURL[0],
+// MediumImage     = MediumImage[0].URL[0],
+// LargeImage      = LargeImage[0].URL[0],
+// Title           = ItemAttributes[0].Title[0],
+// Studio          = ItemAttributes[0].Studio[0],
+// Label           = ItemAttributes[0].Label[0],
+// ProductTypeName = ItemAttributes[0].ProductTypeName[0]
+
+function compareTwoProducts(prod1, prod2){
+  var r = false;
+  r = (prod1.ASIN === prod2.ASIN) && (prod1.DetailPageURL === prod2.DetailPageURL);
+  r = r && (prod1.MediumImage === prod2.MediumImage) && (prod1.LargeImage && prod2.LargeImage);
+  r = r && (prod1.Title === prod2.Title) && (prod1.Studio && prod2.Studio) && (prod1.Label === prod2.Label);
+  r = r && (prod1.ProductTypeName === prod2.ProductTypeName);
+  r = (r === undefined) ? false : r; //if objects are empty or corrupted
+  return r;
+}
+
 // writeProduct({pupe:'pupe'});
 
 //Exports
 exports.writeProduct = writeProduct;
 exports.readProductASIN = readProductASIN;
 exports.readAllProducts = readAllProducts;
+exports.compareTwoProducts = compareTwoProducts;
 
 // var employees = null;
 // function getEmployees(){
