@@ -30,15 +30,17 @@ AmazonProduct = {
 }
 ---------------------------------------------------------- */
 function createAmazonProduct(amazonProductResponse){
+  // console.log(amazonProductResponse);
+  var aR = amazonProductResponse; //changed for shorter code, left parameter name for Intelisis
   var aP = {}; //Empty object
-  aP.ASIN            = amazonProductResponse.ASIN[0];
-  aP.DetailPageURL   = amazonProductResponse.DetailPageURL[0];
-  aP.MediumImage     = amazonProductResponse.MediumImage[0].URL[0];
-  aP.LargeImage      = amazonProductResponse.LargeImage[0].URL[0];
-  aP.Title           = amazonProductResponse.ItemAttributes[0].Title[0];
-  aP.Studio          = amazonProductResponse.ItemAttributes[0].Studio[0];
-  aP.Label           = amazonProductResponse.ItemAttributes[0].Label[0];
-  aP.ProductTypeName = amazonProductResponse.ItemAttributes[0].ProductTypeName[0];
+  aP.ASIN            = (aR.ASIN                              === undefined) ? 'N/A' : aR.ASIN[0];
+  aP.DetailPageURL   = (aR.DetailPageURL                     === undefined) ? 'N/A' : aR.DetailPageURL[0];
+  aP.MediumImage     = (aR.MediumImage[0].URL                === undefined) ? 'N/A' : aR.MediumImage[0].URL[0];
+  aP.LargeImage      = (aR.LargeImage[0].URL                 === undefined) ? 'N/A' : aR.LargeImage[0].URL[0];
+  aP.Title           = (aR.ItemAttributes[0].Title           === undefined) ? 'N/A' : aR.ItemAttributes[0].Title[0];
+  aP.Studio          = (aR.ItemAttributes[0].Studio          === undefined) ? 'N/A' : aR.ItemAttributes[0].Studio[0];
+  aP.Label           = (aR.ItemAttributes[0].Label           === undefined) ? 'N/A' : aR.ItemAttributes[0].Label[0];
+  aP.ProductTypeName = (aR.ItemAttributes[0].ProductTypeName === undefined) ? 'N/A' : aR.ItemAttributes[0].ProductTypeName[0];
   return aP;
 }
 
