@@ -53,7 +53,7 @@ function loading(loading){
 function drawProduct(amazonData){
   var tBody = $('#table-body');
   amazonData.forEach((prod) => {    
-    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr>');
+    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr>').children().last();
     tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42"></td>');
     tr.append('<td>'+prod.ASIN+'</td>');
     tr.append('<td>'+prod.Title+'</td>');
@@ -64,8 +64,11 @@ function drawProduct(amazonData){
 }
 
 function searchTable(what){
-  // var catalog = $('#table-body').children().find(':not(:contains('+what+'))').parent();
-  // console.log(catalog);
+  var catalog = $('#table-body').children();
+  console.log(catalog);
+  // catalog.forEach((prodRow) => {
+  //   console.log(String(prodRow.children()));
+  // });
 }
 
 
