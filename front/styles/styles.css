@@ -12,3 +12,16 @@
 #table-body a {
   color: whitesmoke;
 }
+
+#item-img {
+  border-radius: 4px, 
+}
+
+#saveBtnDiv {
+  float: right;
+  padding: 0px 0px 0px 10px;
+}
+
+#saveBtnDiv button {
+  width: 40px;
+}

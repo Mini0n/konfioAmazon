@@ -4,9 +4,12 @@ var amazon = require('amazon-product-api');
 
 //amazon client with my ID settings
 var client = amazon.createClient({
-  awsId: "AKIAJ3F7FX3TCJMIXP7Q",
-  awsSecret: "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",
-  awsTag: "konfiotest-20"
+  // awsId: "AKIAJ3F7FX3TCJMIXP7Q",
+  awsId: 'AKIAIIVK3YG4M33WRWDA',
+  // awsSecret: "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",
+  awsSecret: 'NvWCMFS3KeIoa2LVlvOoZJWep+nRt8fQ6jyIaKZJ',
+  // awsTag: "konfiatest03-20"
+  awsTag: 'konfiatest00-20'
 });
 
 //searchQuery object
@@ -61,7 +64,7 @@ function doSearchKeywords(keywords, callback, callbackParams){
     if (err) {
       console.log('error');
       console.log(err);
-      // console.log(err[0].Error);
+      console.log(err.Error);
     } else {
       // console.log(results);  // products (Array of Object) 
       // console.log(response); // response (Array where the first element is an Object that contains Request, Item, etc.) 

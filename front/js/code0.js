@@ -51,12 +51,18 @@ function loading(loading){
 }
 
 function drawProduct(amazonData){
+  var saveBtn = '<div id="saveBtnDiv"><button type="button" class="btn table-dark" onclick="prodBtn(this)"> + </button></div>';
+  var deleBtn = '<div id="saveBtnDiv"><button type="button" class="btn table-dark" onclick="prodBtn(this)"> - </button></div>'  
   var tBody = $('#table-body');
   amazonData.forEach((prod) => {    
-    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'"></tr> ').children().last();
-    tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42"></td>');
+    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'" onclick="rowClick(this)"></tr> ').children().last();
+    tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42" class="item-img"></td>');
     tr.append('<td>'+prod.ASIN+'</td> ');
-    tr.append('<td>'+prod.Title+'</td> ');
+    if (currentTab=='amazon'){
+      tr.append('<td>'+saveBtn+prod.Title+'</td> ');
+    } else {
+      tr.append('<td>'+deleBtn+prod.Title+'</td> ');
+    }
     tr.append('<td>'+prod.Label+'</td> ');
     tr.append('<td>'+prod.ProductTypeName+'</td> ');
     tr.append('<td><a href="'+prod.DetailPageURL+'" target="_blank">@Amazon</a></td> ');
@@ -72,5 +78,14 @@ function searchTable(what){
 
 }
 
-currentTab = 'catalog';
+function rowClick(row){
+  // console.log(row);
+}
+
+function prodBtn(prod){
+  var row = $(prod).parent().parent().parent()[0].id;
+  console.log(row)
+}
+
+// currentTab = 'catalog';
 setTab(currentTab);
