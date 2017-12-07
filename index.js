@@ -31,7 +31,6 @@ app.get('/detail', function(req, res){
 });
 
 app.get('/detail/:ASIN', function(req, res){
-  var expRes = res;
   dbUse.readProductASIN(req.params.ASIN, (results) => { res.json(results) } );
 });
 
@@ -39,7 +38,7 @@ app.listen(8000);
 console.log('server starded');
 
 function returnResultsJSON(results, res){
-  console.log(results);
+  // console.log(results);
   searchResults = results;
   // dbUse.writeProduct(results[0]);
   res.json(results);

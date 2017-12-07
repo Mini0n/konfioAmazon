@@ -47,7 +47,7 @@ function readProductASIN(ASIN, callback){
     }  else {
       res = res[0];
     }
-    console.log(res);
+    // console.log(res);
     callback(res);
   });
 }
