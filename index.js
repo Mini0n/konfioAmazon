@@ -1,6 +1,7 @@
 //amazon require
-var amazon  = new require('./amazon');
+var amazon  = new require('./amazon/amazon');
 var express = require('express');
+var dbUse   = require('./db/dbUse');
 
 const front = __dirname +'/front/';
 
