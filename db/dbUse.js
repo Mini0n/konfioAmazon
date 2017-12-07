@@ -38,14 +38,17 @@ function writeProduct(amazonProduct){
 //read an AmazonProduct by its ASIN
 function readProductASIN(ASIN, callback){
   var sql = 'SELECT * FROM '+dbKonfio.konfioTable+' WHERE ASIN = "'+ASIN+'"';
-  console.log(sql);
+  // console.log(sql);
   con.query(sql, function(err, res, fields){
     if (err) throw err;
+    // console.log(res);
     if (res.length < 1) { //an array is returned 
-      callback({}); 
+      res = {}; 
     }  else {
-      callback(res[0]);
+      res = res[0];
     }
+    console.log(res);
+    callback(res);
   });
 }
 
@@ -77,7 +80,7 @@ function compareTwoProducts(prod1, prod2){
   return r;
 }
 
-// writeProduct({pupe:'pupe'});
+function returnJSON(){}
 
 //Exports
 exports.writeProduct = writeProduct;
@@ -85,28 +88,3 @@ exports.readProductASIN = readProductASIN;
 exports.readAllProducts = readAllProducts;
 exports.compareTwoProducts = compareTwoProducts;
 
-// var employees = null;
-// function getEmployees(){
-//   con.query("SELECT * FROM Employees", function (err, res, fields) {
-//     if (err) throw err;
-//     employees = res;
-//   });
-// }
-// //-------------------------------------------------------------------------------------------------------------
-// function preTxt(txt){
-//   return '<pre>'+txt+'</pre>';
-// }
-
-// function readEmployees(req, res){
-//   getEmployees();
-//   var r = '';
-//   var timer = setTimeout(function(){
-//     clearTimeout(timer);
-//     // console.log(employees);
-//     employees.forEach(el => {
-//       var s = el.name + ' | ' + el.position + ' | ' + el.mail + '<br>';
-//       r += s;
-//     });
-//     res.send(r);
-//   },1000);
-// }

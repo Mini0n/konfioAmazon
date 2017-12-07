@@ -65,12 +65,13 @@ function doSearchKeywords(keywords, callback, callbackParams){
       // console.log(response); // response (Array where the first element is an Object that contains Request, Item, etc.) 
       // logInfo(results);
       var amazonObjects = generateAmazonProductsObjects(results);
-      if (Object.prototype.toString.call(callbackParams) === '[object Array]'){
-        callbackParams.unshift(amazonObjects);
-      } else {
-        callbackParams = [amazonObjects];  
-      }
-      callback.apply(null, callbackParams);
+      // if (Object.prototype.toString.call(callbackParams) === '[object Array]'){
+      //   callbackParams.unshift(amazonObjects);
+      // } else {
+      //   callbackParams = [amazonObjects];  
+      // }
+      // callback.apply(null, callbackParams);
+      callback(amazonObjects);
     }
   });
 }
@@ -80,8 +81,6 @@ function logInfo(info){
     console.log(i + ' ASIN: '+prod.ASIN);
   });
 }
-
-
 
 //Simple search function to be exported
 var doSearch = function(keywords, callback, callbackParams){
