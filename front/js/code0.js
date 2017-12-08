@@ -2,6 +2,8 @@ console.log('code0');
 
 const amazonURL  = '/API/search';
 const catalogURL = '/API/detail';
+const removePURL = '/API/remove';
+const addProdURL = '/API/add';
 
 //some global var to make all smoother
 var currentTab = 'amazon';
@@ -84,8 +86,27 @@ function rowClick(row){
 }
 
 function prodBtn(prod){
-  var row = $(prod).parent().parent().parent()[0].id;
-  console.log(row)
+  var ANSI = $(prod).parent().parent().parent()[0].id.replace('prod-','');
+  if (currentTab === 'amazon'){ 
+    addProd(ANSI); 
+  } else {0
+    delProd(ANSI);
+  }
+}
+
+function addProd(ANSI){
+  console.log('adding '+ANSI);
+  $.get(addProdURL+'/'+ANSI, function(data, status){
+    console.log('added');
+  });  
+}
+
+function delProd(ANSI){
+  console.log('removing '+ANSI);
+  loading(true);
+  $.get(removePURL+'/'+ANSI, function(data, status){
+    loadCatalog();
+  });
 }
 
 // currentTab = 'catalog';

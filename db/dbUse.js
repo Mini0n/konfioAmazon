@@ -16,7 +16,7 @@ AmazonProduct = {
 ---------------------------------------------------------- */
 
 //write an AmazonProduct object to the DB
-function writeProduct(amazonProduct){
+function writeProduct(amazonProduct, callback){
   var sql = 'INSERT INTO '+dbKonfio.konfioTable+' '; 
   sql += '(ASIN, DetailPageURL, MediumImage, LargeImage, Title, Studio, Label, ProductTypeName) VALUES ';
   sql += '("'+amazonProduct.ASIN+'", ';
@@ -28,18 +28,20 @@ function writeProduct(amazonProduct){
   sql +=  '"'+amazonProduct.Label+'", ';
   sql +=  '"'+amazonProduct.ProductTypeName+'" ';
   sql += ')';
-  console.log(sql);
+  // console.log(sql);
   con.query(sql, function(err, res){
     if (err) throw err;
     console.log('Amazon Object has beed added to the table');
+    callback(res);
   });
 }
 
-function deleteProduct(ASIN){
-  var sql = 'DELETE FROM '+dbKonfio.konfioTable+' WHERE ASIN = '+ASIN+'"';
+function deleteProduct(ASIN, callback){
+  var sql = 'DELETE FROM '+dbKonfio.konfioTable+' WHERE ASIN = "'+ASIN+'"';
   con.query(sql, function(err, res){
     if (err) throw err;
     console.log('Product has been deleted');
+    callback(res);
   });
 }
 
@@ -68,6 +70,7 @@ function readAllProducts(callback){
     callback(res);
   });
 }
+
 
 // ASIN            = ASIN[0],
 // DetailPageURL   = DetailPageURL[0],
@@ -116,4 +119,5 @@ exports.writeProduct = writeProduct;
 exports.readProductASIN = readProductASIN;
 exports.readAllProducts = readAllProducts;
 exports.compareTwoProducts = compareTwoProducts;
-
+exports.deleteProduct = deleteProduct;
+exports.checkIfProductExists = checkIfProductExists;
