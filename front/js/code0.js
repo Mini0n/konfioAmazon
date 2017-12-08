@@ -84,7 +84,7 @@ function drawProduct(amazonData){
     }
     tr.append('<td>'+prod.Label+'</td> ');
     tr.append('<td>'+prod.ProductTypeName+'</td> ');
-    tr.append('<td><a href="'+prod.DetailPageURL+'" target="_blank">@Amazon</a></td> ');
+    tr.append('<td><a href="'+prod.DetailPageURL+'" target="_blank">Amazon</a></td> ');
   });
 }
 
@@ -105,28 +105,46 @@ function rowDblClick(row){
   
   if (String(currentTab) === 'amazon'){
     product = searchAmazonObject(ASIN);
-    showAmazonDetails(product);
   } else {
     product = searchCatalogObject(ASIN);
-    showCatalogDetails(product); 
   }
-
-  var detDiv = $('#details-div').fadeIn('slow');
-  
+  showProductDetails(product);
 }
 
 function detsDblClick(){
+  var detLay = $('#details-div-overlay').fadeOut('slow');
   var detDiv = $('#details-div').fadeOut('slow');
 }
 
-function showAmazonDetails(product){
+function showProductDetails(product){
   var detDiv = $('#details-div');
-  $(detDiv).text(JSON.stringify(product));
+  if (product === null){
+    showAlert('Product NOT FOUND. Check ASIN.');
+  } else {
+    fillDetails(product);
+    var detLay = $('#details-div-overlay').fadeIn('slow');
+    var detDiv = $('#details-div').fadeIn('slow');
+  }
 }
 
-function showCatalogDetails(product){
-  var detDiv = $('#details-div');
-  $(detDiv).text(JSON.stringify(product));
+function fillDetails(product){
+  var img = $('#foto-div').css('background-image','url('+product.LargeImage+')');
+  var details = $('#info-div');
+  details.html('');
+  details.append('<p><a href="'+product.DetailPageURL+'" target="_blank">'+product.ASIN+'</a>&nbsp;&nbsp;['+product.ProductTypeName+']</p>');
+  details.append('<p class="label-p">Title</p>');
+  details.append('<p>'+product.Title+'</p>');
+  details.append('<p class="label-p">Studio</p>');
+  details.append('<p>'+product.Studio+'</p>');
+  details.append('<p class="label-p">Label</p>');
+  details.append('<p>'+product.Label+'</p>');
+  var button = $('#detailButton');
+  if (String(currentTab) === 'amazon'){
+    button.text('Save');
+  } else { 
+    button.text('Remove'); 
+  }
+  button.attr('onclick','detailButtonClick(\''+product.ASIN+'\')');
 }
 
 function prodBtn(prod){
@@ -177,6 +195,16 @@ function searchCatalogObject(ASIN){
   return res;
 }
 
+function detailButtonClick(ASIN){
+  if (ASIN === undefined){ detsDblClick(); }
+  if (String(currentTab) === 'amazon'){ 
+    addProd(ASIN);
+  } else {0
+    delProd(ASIN);
+  }
+  detsDblClick();
+}
+
 function loadURL(){
   // currentTab = 'catalog';
   var url = new URL(window.location.href);
@@ -194,8 +222,8 @@ function loadURL(){
     loadCatalog(function(){
       product = searchCatalogObject(pro);
       // console.log(product);
-      showCatalogDetails(product);
-      var detDiv = $('#details-div').fadeIn('slow');
+      showProductDetails(product);
+      // var detDiv = $('#details-div').fadeIn('slow');
     });
   }
 

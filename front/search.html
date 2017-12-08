@@ -10,8 +10,28 @@
 <body class="bg-dark">
   <!-- <pre>ola k ase; Front End</pre> -->
 
-<div id="details-div" ondblclick="detsDblClick();">
-  Details!
+<div id="details-div-overlay" ondblclick="detsDblClick();"> </div>
+
+<div id="details-div" class="bg-dark">
+  
+  <div id="close-div" onclick="detsDblClick();">
+      <button type="button" class="btn table-dark" onclick="detsDblClick();">×</button>
+  </div>
+
+  <div id="button-div">
+    <button id="detailButton" type="button" class="btn table-dark" onclick="detailButtonClick()">Save</button>
+  </div>
+
+  <div id="foto-contain-div">
+    <div id="foto-div">
+
+    </div>
+    <!-- <img id="detail-foto" src="" width="100%"> -->
+  </div>
+  
+  <div id="info-div">
+    <pre>ceci sunt les detailes</pre>
+  </div>
 </div>
 
 <div id="alert-div">

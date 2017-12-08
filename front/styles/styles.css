@@ -1,3 +1,7 @@
+p {
+  margin: 0px;
+}
+
 #loading-div {
   width: 100%;
   text-align: center;
@@ -10,7 +14,8 @@
 }
 
 #table-body a {
-  color: whitesmoke;
+  font-weight: bold;
+  color: cornflowerblue;
 }
 
 #item-img {
@@ -35,7 +40,7 @@
   padding: 0px 12px;
   float: left;
   background-color: #212529;
-  opacity: 0.75;
+  opacity: 0.95;
   position: fixed;
   left: 35%;
   top: 70px;
@@ -45,7 +50,7 @@
   z-index: 100;
 }
 
-#details-div {
+#details-div-overlay {
   width: 100%;
   height: 100%;
   /* line-height: 70px; */
@@ -62,4 +67,76 @@
   /* border-radius: 6px; */
   z-index: 100;
   display: none;
+}
+
+#details-div{
+  z-index: 200;
+  position: fixed;
+  margin: 0 auto;
+  top: 50%;
+  width: 50%;
+  height: 50%;
+  min-height: 300px;
+  transform: translate(50%, -50%);
+  min-width: 306px;
+  color: white;
+  /* background-color: #212529;   */
+  border: 4px solid #495057;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 14px;
+  display: none;
+}
+
+#info-div{
+  float: left;
+  height: 100%;
+  width: 69%;
+  padding-left: 10px;
+  /* width: 250px; */
+}
+
+#info-div a {
+  font-weight: bold;
+  color: cornflowerblue;
+}
+
+.label-p {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#foto-contain-div{
+  height: 100%;
+  width: 30%;
+  float: left;
+  max-height: 365px; 
+}
+
+#foto-div{
+  margin: 0%;
+  height: 100%;
+  width: 100%;
+  /* background-image: url(/front/imgs/1.jpg); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#close-div{
+  float: right;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font: 400 13.3333px Arial;
+}
+
+
+
+#button-div {
+  float: right;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font: 400 13.3333px Arial;
 }
