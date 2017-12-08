@@ -61,6 +61,7 @@ function loadCatalog(){
 function loading(loading){
   $('#table-body').html('');
   if (loading){ $('#loading-div').show(); } else { $('#loading-div').hide(); }
+  // showAlert('L o a d i n g . . .');
 }
 
 function drawProduct(amazonData){
@@ -68,7 +69,7 @@ function drawProduct(amazonData){
   var deleBtn = '<div id="saveBtnDiv"><button type="button" class="btn table-dark" onclick="prodBtn(this)"> - </button></div>'  
   var tBody = $('#table-body');
   amazonData.forEach((prod) => {    
-    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'" onclick="rowClick(this)"></tr> ').children().last();
+    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'" ondblclick="rowdblClick(this)"></tr> ').children().last();
     tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42" class="item-img"></td>');
     tr.append('<td>'+prod.ASIN+'</td> ');
     if (String(currentTab)==='amazon'){
@@ -92,8 +93,14 @@ function searchTable(what){
 
 }
 
-function rowClick(row){
-  // console.log(row);
+function rowdblClick(row){
+  // console.dlog(row);
+  var detDiv = $('#details-div').fadeIn('slow');
+  $(detDiv).text(row);
+}
+
+function detsdblClick(){
+  var detDiv = $('#details-div').fadeOut('slow');
 }
 
 function prodBtn(prod){
@@ -108,7 +115,8 @@ function prodBtn(prod){
 function addProd(ANSI){
   console.log('adding '+ANSI);
   $.get(addProdURL+'/'+ANSI, function(data, status){
-    console.log('added');
+    // console.log('added');
+    showAlert('Product Added to your Catalog');
   });  
 }
 
@@ -116,8 +124,15 @@ function delProd(ANSI){
   console.log('removing '+ANSI);
   loading(true);
   $.get(removePURL+'/'+ANSI, function(data, status){
+    showAlert('Product Removed from your Catalog');
     loadCatalog();
   });
+}
+
+function showAlert(alertText){
+  var alert = $('#alert-div');
+  $(alert).text(alertText);
+  $(alert).fadeIn(1000).fadeOut(2000);
 }
 
 // currentTab = 'catalog';
