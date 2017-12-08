@@ -24,16 +24,16 @@
 
     <ul id="links" class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" onclick="setActiveLink(this.id);" id="amazon" href="#">Search <span class="sr-only">(current)</span></a>
+        <a class="nav-link" onclick="setActiveLink(this.id);" id="amazon">Search <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" onclick="setActiveLink(this.id);" id="catalog" href="#">My Catalog</a>
+        <a class="nav-link" onclick="setActiveLink(this.id);" id="catalog">My Catalog</a>
       </li>
     </ul>
 
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" onsubmit="return false;">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input" value="shoegaze">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="search();">Search</button>
+      <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="search()">Search</button>
     </form>
   </div>
 

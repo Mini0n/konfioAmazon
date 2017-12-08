@@ -19,16 +19,25 @@ function setActiveLink(tab){
 }
 
 function setTab(currentTab){
+  var val = $('#search-input');
   if (String(currentTab) === 'catalog'){
+    val.val(lastCatalogSearch);
     loadCatalog();
   } else {
+    val.val(lastAmazonSearch);
     searchAmazon(lastAmazonSearch);
   }
 }
 
 function search(){
   var val = $('#search-input').val();
-  if (currentTab === 'amazon'){ searchAmazon(val); } else { searchTable(val); }
+  if (String(currentTab) === 'amazon'){ 
+    // console.log('búsqueda Amazon');
+    searchAmazon(val); 
+  } else { 
+    // console.log('búsqueda Catalogo');
+    searchTable(val); 
+  }
 }
 
 function searchAmazon(what){
@@ -45,6 +54,7 @@ function loadCatalog(){
   $.get(catalogURL, function(data, status){
     loading(false);
     drawProduct(data);
+    search();
   });
 }
 
@@ -73,6 +83,7 @@ function drawProduct(amazonData){
 }
 
 function searchTable(what){
+  lastCatalogSearch = what;
   var catalog = $('#table-body').children();
   catalog.each((ind, el) => {
     var str = $(el).text().replace('@Amazon','').toLowerCase();
