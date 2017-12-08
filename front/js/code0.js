@@ -33,7 +33,7 @@ function setTab(currentTab){
 
 function search(){
   var val = $('#search-input').val();
-  if (String(currentTab) === 'amazon'){ 
+  if (String(currentTab) === 'amazon'){
     // console.log('búsqueda Amazon');
     searchAmazon(val); 
   } else { 
@@ -52,13 +52,14 @@ function searchAmazon(what){
   }); 
 }
 
-function loadCatalog(){
+function loadCatalog(callback){
   loading(true);
   $.get(catalogURL, function(data, status){
     loading(false);
     tempCatalogArray = data;
     drawProduct(data);
     search();
+    if (callback !== undefined){ callback(); }
   });
 }
 
@@ -73,7 +74,7 @@ function drawProduct(amazonData){
   var deleBtn = '<div id="saveBtnDiv"><button type="button" class="btn table-dark" onclick="prodBtn(this)"> - </button></div>'  
   var tBody = $('#table-body');
   amazonData.forEach((prod) => {    
-    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'" ondblclick="rowdblClick(this)"></tr> ').children().last();
+    var tr = tBody.append('<tr id="prod-'+prod.ASIN+'" ondblclick="rowDblClick(this)"></tr> ').children().last();
     tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42" class="item-img"></td>');
     tr.append('<td>'+prod.ASIN+'</td> ');
     if (String(currentTab)==='amazon'){
@@ -97,16 +98,15 @@ function searchTable(what){
 
 }
 
-function rowdblClick(row){
+function rowDblClick(row){
   // console.dlog(row);
   var product = null;
   var ASIN = $(row).attr('id').replace('prod-','');
-
   
-  if (String(currentTab) === 'amazon'){ 
+  if (String(currentTab) === 'amazon'){
     product = searchAmazonObject(ASIN);
     showAmazonDetails(product);
-  } else { 
+  } else {
     product = searchCatalogObject(ASIN);
     showCatalogDetails(product); 
   }
@@ -115,7 +115,7 @@ function rowdblClick(row){
   
 }
 
-function detsdblClick(){
+function detsDblClick(){
   var detDiv = $('#details-div').fadeOut('slow');
 }
 
@@ -171,15 +171,34 @@ function searchAmazonObject(ASIN){
 
 function searchCatalogObject(ASIN){
   var res = null;
-  tempAmazonOArray.forEach((prod) => {
+  tempCatalogArray.forEach((prod) => {
     if (String(prod.ASIN) === String(ASIN)){ res = prod; }
   });
   return res;
 }
 
-// currentTab = 'catalog';
-var url = new URL(window.location.href);
-var tab = url.searchParams.get('t');
-currentTab = (String(tab) === 'catalog') ? String(tab) : currentTab;
+function loadURL(){
+  // currentTab = 'catalog';
+  var url = new URL(window.location.href);
+  var tab = url.searchParams.get('t'); //get tab paramenter
+  var pro = url.searchParams.get('p'); //get product paramenter
+  
+  currentTab = (String(tab) === 'catalog') ? String(tab) : currentTab;
+  setActiveLink(currentTab);
+  // $('#'+currentTab).click();
 
-$('#'+currentTab).click();
+  // if (pro === null){ pro = ''; }
+
+  if ((pro !== null) && (pro != '')){
+    // console.log('pro: '+pro);
+    loadCatalog(function(){
+      product = searchCatalogObject(pro);
+      // console.log(product);
+      showCatalogDetails(product);
+      var detDiv = $('#details-div').fadeIn('slow');
+    });
+  }
+
+}
+
+loadURL();

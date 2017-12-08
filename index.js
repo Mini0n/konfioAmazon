@@ -16,7 +16,11 @@ app.get('/search', function(req, res){
 });
 
 app.get('/detail', function(req, res){
-  res.sendFile(front+'detail.html');
+  res.redirect('/search?t=catalog');
+});
+
+app.get('/detail/:ASIN', function(req, res){
+  res.redirect('/search?t=catalog&p='+req.params.ASIN);
 });
 
 app.get('/list', function(req, res){
@@ -24,6 +28,9 @@ app.get('/list', function(req, res){
   res.redirect('/search?t=catalog');
 });
 
+
+
+//--- API CALLS ----------------------------------------------------------------------------
 var searchResults = null;
 app.get('/API/search/:keywords', function(req, res){
   searchResults = null;
@@ -59,6 +66,7 @@ app.get('/API/add/:ASIN', function(req, res){
     res.json(results);
   });
 });
+
 
 //--- statics ----
 app.use("/front", express.static(__dirname + '/front'));
