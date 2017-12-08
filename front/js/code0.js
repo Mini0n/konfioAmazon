@@ -9,6 +9,8 @@ const addProdURL = '/API/add';
 var currentTab = 'amazon';
 var lastAmazonSearch  = 'shoegaze';
 var lastCatalogSearch = '';
+var tempAmazonOArray = [];  //temporal Amazon Objects Arrays
+var tempCatalogArray = [];  //temporal Catalog Arrays
 
 function setActiveLink(tab){
   $('#links').children().removeClass('active');
@@ -45,6 +47,7 @@ function searchAmazon(what){
   lastAmazonSearch = what;
   $.get(amazonURL+'/'+what, function(data, status){
     loading(false);
+    tempAmazonOArray = data;
     drawProduct(data);
   }); 
 }
@@ -53,6 +56,7 @@ function loadCatalog(){
   loading(true);
   $.get(catalogURL, function(data, status){
     loading(false);
+    tempCatalogArray = data;
     drawProduct(data);
     search();
   });
@@ -95,12 +99,34 @@ function searchTable(what){
 
 function rowdblClick(row){
   // console.dlog(row);
+  var product = null;
+  var ASIN = $(row).attr('id').replace('prod-','');
+
+  
+  if (String(currentTab) === 'amazon'){ 
+    product = searchAmazonObject(ASIN);
+    showAmazonDetails(product);
+  } else { 
+    product = searchCatalogObject(ASIN);
+    showCatalogDetails(product); 
+  }
+
   var detDiv = $('#details-div').fadeIn('slow');
-  $(detDiv).text(row);
+  
 }
 
 function detsdblClick(){
   var detDiv = $('#details-div').fadeOut('slow');
+}
+
+function showAmazonDetails(product){
+  var detDiv = $('#details-div');
+  $(detDiv).text(JSON.stringify(product));
+}
+
+function showCatalogDetails(product){
+  var detDiv = $('#details-div');
+  $(detDiv).text(JSON.stringify(product));
 }
 
 function prodBtn(prod){
@@ -133,6 +159,22 @@ function showAlert(alertText){
   var alert = $('#alert-div');
   $(alert).text(alertText);
   $(alert).fadeIn(1000).fadeOut(2000);
+}
+
+function searchAmazonObject(ASIN){
+  var res = null;
+  tempAmazonOArray.forEach((prod) => {
+    if (String(prod.ASIN) === String(ASIN)){ res = prod; }
+  });
+  return res;
+}
+
+function searchCatalogObject(ASIN){
+  var res = null;
+  tempAmazonOArray.forEach((prod) => {
+    if (String(prod.ASIN) === String(ASIN)){ res = prod; }
+  });
+  return res;
 }
 
 // currentTab = 'catalog';
