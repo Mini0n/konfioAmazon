@@ -49,11 +49,19 @@ function searchAmazon(what){
   }); 
 }
 
+function loadCatalogBack(callback){
+  $.get(catalogURL, function(data, status){
+    tempCatalogArray = data;
+    if (callback !== undefined){ callback(); }
+  });
+}
+
 function loadCatalog(callback){
   loading(true);
+  console.log('loadCatalog()');
   $.get(catalogURL, function(data, status){
-    loading(false);
     tempCatalogArray = data;
+    loading(false);
     drawProduct(data);
     search();
     if (callback !== undefined){ callback(); }
@@ -154,11 +162,19 @@ function prodBtn(prod){
 }
 
 function addProd(ANSI){
-  console.log('adding '+ANSI);
-  $.get(addProdURL+'/'+ANSI, function(data, status){
-    // console.log('added');
-    showAlert('Product Added to your Catalog');
-  });  
+  // console.log('adding '+ANSI);
+  loadCatalogBack(function(){
+    var prod = searchCatalogObject(ANSI);
+    if (prod === null){
+      $.get(addProdURL+'/'+ANSI, function(data, status){
+        // console.log('added');
+        showAlert('Product Added to your Catalog');
+      });
+    } else {
+      showAlert('Product '+ANSI+'IS already in your Catalog');
+    }
+  });
+
 }
 
 function delProd(ANSI){
@@ -210,7 +226,7 @@ function loadURL(){
   currentTab = (String(tab) === 'catalog') ? String(tab) : currentTab;
   setActiveLink(currentTab);
   if ((pro !== null) && (pro != '')){
-    loadCatalog(function(){
+    loadCatalogBack(function(){
       product = searchCatalogObject(pro);
       showProductDetails(product);
     });
