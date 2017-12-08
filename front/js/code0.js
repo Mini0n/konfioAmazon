@@ -14,7 +14,6 @@ var tempCatalogArray = [];  //temporal Catalog Arrays
 
 function setActiveLink(tab){
   $('#links').children().removeClass('active');
-  // $(event.target).parent().addClass('active');
   $('#'+tab).parent().addClass('active');
   currentTab = tab; //just check where we are so we know what to do
   setTab(currentTab);
@@ -34,10 +33,8 @@ function setTab(currentTab){
 function search(){
   var val = $('#search-input').val();
   if (String(currentTab) === 'amazon'){
-    // console.log('búsqueda Amazon');
     searchAmazon(val); 
   } else { 
-    // console.log('búsqueda Catalogo');
     searchTable(val); 
   }
 }
@@ -206,24 +203,16 @@ function detailButtonClick(ASIN){
 }
 
 function loadURL(){
-  // currentTab = 'catalog';
   var url = new URL(window.location.href);
   var tab = url.searchParams.get('t'); //get tab paramenter
   var pro = url.searchParams.get('p'); //get product paramenter
   
   currentTab = (String(tab) === 'catalog') ? String(tab) : currentTab;
   setActiveLink(currentTab);
-  // $('#'+currentTab).click();
-
-  // if (pro === null){ pro = ''; }
-
   if ((pro !== null) && (pro != '')){
-    // console.log('pro: '+pro);
     loadCatalog(function(){
       product = searchCatalogObject(pro);
-      // console.log(product);
       showProductDetails(product);
-      // var detDiv = $('#details-div').fadeIn('slow');
     });
   }
 
