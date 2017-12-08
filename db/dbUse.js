@@ -35,6 +35,14 @@ function writeProduct(amazonProduct){
   });
 }
 
+function deleteProduct(ASIN){
+  var sql = 'DELETE FROM '+dbKonfio.konfioTable+' WHERE ASIN = '+ASIN+'"';
+  con.query(sql, function(err, res){
+    if (err) throw err;
+    console.log('Product has been deleted');
+  });
+}
+
 //read an AmazonProduct by its ASIN
 function readProductASIN(ASIN, callback){
   var sql = 'SELECT * FROM '+dbKonfio.konfioTable+' WHERE ASIN = "'+ASIN+'"';
@@ -80,7 +88,28 @@ function compareTwoProducts(prod1, prod2){
   return r;
 }
 
-function returnJSON(){}
+function checkIfProductExists(ASIN, callback){
+  // console.log('checking for: '+ASIN);
+  readProductASIN(ASIN, function(res){
+    var exists = !(isEmpty(res));
+    callback(exists);
+  });
+}
+
+function isEmpty(obj) {
+  for(var prop in obj) {
+      if(obj.hasOwnProperty(prop))
+          return false;
+  }
+
+  return true;
+}
+
+// console.log('checkiiing');
+// var r = checkIfProductExists('1518894461', function(res){
+//   if (res==true){ console.log('existe') } else { console.log('no existe') }
+// });
+
 
 //Exports
 exports.writeProduct = writeProduct;

@@ -1,7 +1,7 @@
 console.log('code0');
 
-const amazonURL  = '/search';
-const catalogURL = '/detail';
+const amazonURL  = '/API/search';
+const catalogURL = '/API/detail';
 
 //some global var to make all smoother
 var currentTab = 'amazon';
@@ -10,13 +10,14 @@ var lastCatalogSearch = '';
 
 function setActiveLink(tab){
   $('#links').children().removeClass('active');
-  $(event.target).parent().addClass('active');
+  // $(event.target).parent().addClass('active');
+  $('#'+tab).parent().addClass('active');
   currentTab = tab; //just check where we are so we know what to do
   setTab(currentTab);
 }
 
 function setTab(currentTab){
-  if (currentTab === 'catalog'){
+  if (String(currentTab) === 'catalog'){
     loadCatalog();
   } else {
     searchAmazon(lastAmazonSearch);
@@ -58,7 +59,7 @@ function drawProduct(amazonData){
     var tr = tBody.append('<tr id="prod-'+prod.ASIN+'" onclick="rowClick(this)"></tr> ').children().last();
     tr.append('<td><img src="'+prod.MediumImage+'" alt="[]" height="42" width="42" class="item-img"></td>');
     tr.append('<td>'+prod.ASIN+'</td> ');
-    if (currentTab=='amazon'){
+    if (String(currentTab)==='amazon'){
       tr.append('<td>'+saveBtn+prod.Title+'</td> ');
     } else {
       tr.append('<td>'+deleBtn+prod.Title+'</td> ');
@@ -88,4 +89,8 @@ function prodBtn(prod){
 }
 
 // currentTab = 'catalog';
-setTab(currentTab);
+var url = new URL(window.location.href);
+var tab = url.searchParams.get('t');
+currentTab = (String(tab) === 'catalog') ? String(tab) : currentTab;
+
+$('#'+currentTab).click();
