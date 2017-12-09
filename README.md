@@ -22,7 +22,7 @@
 
 ### Configuration
   Now with Node and npm go to the *root* folder of the project and run `npm install` from your terminal.
-  This will resolve all the needed dependencies ( [Express](https://expressjs.com/) for the serving and [amazon-product-api](https://www.npmjs.com/package/amazon-product-api) for the Amazon Product API use)
+  This will resolve all the needed dependencies ([Express](https://expressjs.com/) for the serving and [amazon-product-api](https://www.npmjs.com/package/amazon-product-api) for the Amazon Product API use)
 
 ### Database creation
   You will need to create a DB called **Konfio**. You can do it easily with phpMyAdmin (see Database) or with any MySQL Manager tool you'll prefer.
@@ -34,7 +34,7 @@
   All done!
 
 ### Running application
-  ANd now we're ready.
+  And now we're ready.
   To run the app just go to the *root* folder of the project and from your terminal run: `node index.js`.
   Information on the screen will let you know the app is running.
   Now just go to: **http://localhost:8000** in your browser and voilà.
