@@ -18,7 +18,7 @@
   Database is MySQL 14.14.
   Easiest way to install it and configure is by installing LAMP, WAMP or MAMP (Linux/Mac/Windows Apache+MySQL+PHP)
   Installers by bitnami can be found [here](https://bitnami.com/stacks/infrastructure).
-  phpMyAdmin is algo a great tool to manager your DBs. You can find it [here](https://www.phpmyadmin.net/)
+  phpMyAdmin is a great tool to manager your DBs. You can find it [here](https://www.phpmyadmin.net/)
 
 ### Configuration
   Now with Node and npm go to the *root* folder of the project and run `npm install` from your terminal.
