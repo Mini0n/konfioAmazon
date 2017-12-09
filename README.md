@@ -11,7 +11,7 @@
 
 ### Node & NPM
   If you don't have Node and npm already in your system please refer to the [Node site](https://nodejs.org) where packages/installers are available for almost any OS.
-  Node comes with so you're covered. If you want to update it you can run `npm install npm@latest -g` from a terminal.
+  Node comes with npm so you're covered. If you want to update it you can run `npm install npm@latest -g` from a terminal.
   To check your Node and npm version use: `node -v` and `npm -v`
 
 ### Database
