@@ -9,7 +9,8 @@ var client = amazon.createClient({
   // awsSecret: "64Bc52R5c/KqlWrAD9uK3mZ/Pmf5VD28+e8eC7pK",
   awsSecret: 'NvWCMFS3KeIoa2LVlvOoZJWep+nRt8fQ6jyIaKZJ',
   // awsTag: "konfiatest03-20"
-  awsTag: 'konfiatest00-20'
+  // awsTag: 'konfiatest00-20'
+  awsTag: 'konfiatest0a-20'
 });
 
 //searchQuery object
